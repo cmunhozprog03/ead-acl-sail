@@ -3,10 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserApiResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserApiController extends Controller
 {
+
+    protected $model;
+
+    public function __construct(User $user)
+    {
+        $this->model = $user;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,9 @@ class UserApiController extends Controller
      */
     public function index()
     {
-        //
+        $users = $this->model->paginate();
+
+        return UserApiResource::collection($users);
     }
 
     /**
@@ -31,12 +42,14 @@ class UserApiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $identify
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($identify)
     {
-        //
+        $user = $this->model->where('uuid', $identify)->firstOrFail();
+
+        return new UserApiResource($user);
     }
 
     /**
