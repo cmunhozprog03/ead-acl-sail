@@ -13,7 +13,7 @@ class StoreUpdateUserApi extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,17 @@ class StoreUpdateUserApi extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+
+        $rules = [
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'password' => ['required', 'min:4', 'max:16'],
         ];
+
+        if ($this->method() == 'PUT') {
+            $rules['password'] = ['nullable', 'min:4', 'max:16'];
+        }
+
+        return $rules;
     }
 }
