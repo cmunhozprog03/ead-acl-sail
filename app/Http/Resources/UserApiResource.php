@@ -18,7 +18,6 @@ class UserApiResource extends JsonResource
             'identify' => $this->uuid,
             'name' => $this->name,
             'email' => $this->email
-
         ];
     }
 }
