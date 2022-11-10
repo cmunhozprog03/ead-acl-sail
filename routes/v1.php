@@ -3,6 +3,9 @@
 use App\Http\Controllers\Api\{
     UserApiController
 };
+use App\Http\Controllers\Api\Auth\{
+    RegisterController
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +24,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::apiResource('/users', UserApiController::class);
+Route::post('/register', [RegisterController::class, 'store']);
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::apiResource('/users', UserApiController::class);
+
+});
