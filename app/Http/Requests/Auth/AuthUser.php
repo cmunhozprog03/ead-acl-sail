@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUpdateUserApi extends FormRequest
+class AuthUser extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,18 +23,10 @@ class StoreUpdateUserApi extends FormRequest
      */
     public function rules()
     {
-        $uuid = $this->user;
-
-        $rules = [
-            'name' => ['required', 'string', 'min:3', 'max:255'],
-            'email' => ['required', 'email', 'max:255', "unique:users,email,{$uuid},uuid"],
+        return [
+            'email' => ['required', 'email', 'max:255'],
             'password' => ['required', 'min:4', 'max:16'],
+            'device_name' => ['required', 'string', 'max:200']
         ];
-
-        if ($this->method() == 'PUT') {
-            $rules['password'] = ['nullable', 'min:4', 'max:16'];
-        }
-
-        return $rules;
     }
 }

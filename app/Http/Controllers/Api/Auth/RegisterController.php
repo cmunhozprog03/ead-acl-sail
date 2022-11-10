@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\StoreUserRegister;
+use App\Http\Requests\Auth\StoreUserRegister;
 use App\Http\Resources\UserApiResource;
 use App\Models\User;
 use Illuminate\Http\Request;
